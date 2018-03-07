@@ -4,7 +4,7 @@ Word count topology
 
 from streamparse import Grouping, Topology, JavaSpout
 
-from bolts import LogInfoBolt
+from bolts import LogInfoBolt, TDMSParseBolt
 
 
 class WordCount(Topology):
@@ -15,4 +15,13 @@ class WordCount(Topology):
         outputs=["tdms"]
     )
 
-    log_info_bolt = LogInfoBolt.spec(inputs={bshm_spout: Grouping.LOCAL_OR_SHUFFLE}, par=1)
+    tdms_parse_bolt = TDMSParseBolt.spec(par=1, inputs={
+        bshm_spout: Grouping.LOCAL_OR_SHUFFLE
+    })
+
+    log_info_bolt = LogInfoBolt.spec(par=1, inputs=[
+        tdms_parse_bolt['FCXF-X-04-S01'],
+        tdms_parse_bolt['FCXF-X-04-S02'],
+        tdms_parse_bolt['FCXF-X-04-S03'],
+        tdms_parse_bolt['FCXF-X-04-S04']
+    ])
