@@ -9,6 +9,7 @@
                  [org.apache.storm/storm-core "1.1.1"]
                  [org.apache.storm/flux-core "1.1.1"]
                  [org.apache.storm/storm-kafka "1.1.1"]
+                 [org.apache.storm/storm-mongodb "1.1.1"]
                  [org.apache.kafka/kafka-clients "0.10.0.0"]
                  [
                     org.apache.kafka/kafka_2.10 "0.10.0.0"

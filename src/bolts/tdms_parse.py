@@ -10,7 +10,7 @@ from streamparse import Bolt, Stream
 
 class TDMSParseBolt(Bolt):
     # channel properties as tuple fields
-    tuple_fields = ('timestamp', 'time_offset', 'time_increment', 'samples', 'channel_name', 'module_name', 'data')
+    # tuple_fields = ('timestamp', 'time_offset', 'time_increment', 'samples', 'channel_name', 'module_name', 'data')
 
     # group channels as output streams' name
     channels = (
@@ -49,7 +49,7 @@ class TDMSParseBolt(Bolt):
     )
 
     # output streams declare
-    outputs = [Stream(tuple_fields, channel) for channel in channels]
+    # outputs = [Stream(tuple_fields, channel) for channel in channels]
 
     def process(self, tup):
         data = tup.values[0]
