@@ -9,9 +9,6 @@ from streamparse import Bolt, Stream
 
 
 class TDMSParseBolt(Bolt):
-    # channel properties as tuple fields
-    # tuple_fields = ('timestamp', 'time_offset', 'time_increment', 'samples', 'channel_name', 'module_name', 'data')
-
     # group channels as output streams' name
     channels = (
         'FCXF-X-02-T01',
@@ -48,23 +45,29 @@ class TDMSParseBolt(Bolt):
         'FCXF-X-04-S04'
     )
 
+    # channel properties as tuple fields
+    # tuple_fields = ('timestamp', 'time_offset', 'time_increment', 'samples', 'channel_name', 'module_name', 'data')
+
     # output streams declare
     # outputs = [Stream(tuple_fields, channel) for channel in channels]
 
     def process(self, tup):
         data = tup.values[0]
 
-        # decode the base64 encoded data
-        decoded_data = base64.b64decode(data)
+        try:
+            # decode the base64 encoded data
+            decoded_data = base64.b64decode(data)
 
-        # the tdms data starts with 'TDSm'
-        i = decoded_data.index('TDSm')
+            # the tdms data starts with 'TDSm'
+            i = decoded_data.index('TDSm')
 
-        data_stream = io.BytesIO(decoded_data[i:])
-        tdms_file = TdmsFile(data_stream)
-
-        for tup in self._parse(tdms_file):
-            self.emit(tup, stream=tup[-3])
+            data_stream = io.BytesIO(decoded_data[i:])
+            tdms_file = TdmsFile(data_stream)
+        except Exception as error:
+            self.log(error, 'error')
+        else:
+            for tup in self._parse(tdms_file):
+                self.emit(tup, stream=tup[-3])
 
     def _parse(self, tdms_file):
         for group in tdms_file.groups():

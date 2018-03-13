@@ -9,13 +9,13 @@ import java.util.Base64;
 import java.util.List;
 
 public class BshmScheme implements Scheme {
-    
-    private static Base64.Encoder encoder = Base64.getEncoder();
 
     @Override
     public List<Object> deserialize(ByteBuffer buffer) {
-        byte[] encoded = encoder.encode(buffer.array());
-        String data = new String(encoded);
+        Base64.Encoder encoder = Base64.getEncoder();
+
+        ByteBuffer encoded = encoder.encode(buffer);
+        String data = new String(encoded.array());
 
         return Utils.tuple(data);
     }
