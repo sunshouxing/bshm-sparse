@@ -31,7 +31,7 @@ components:
       # brokerHosts
       - ref: zkHosts
       # topic
-      - bshm
+      - ${kafka.topic} 
       # zkRoot
       - /kafkaSpout
       # id
