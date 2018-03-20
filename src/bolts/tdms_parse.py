@@ -68,6 +68,7 @@ class TDMSParseBolt(Bolt):
         else:
             for tup in self._parse(tdms_file):
                 self.emit(tup, stream=tup[-3])
+                self.emit(tup, stream='ALL-CHANNELS')
 
     def _parse(self, tdms_file):
         for group in tdms_file.groups():
