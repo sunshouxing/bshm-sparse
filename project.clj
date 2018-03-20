@@ -16,6 +16,6 @@
                     :exclusions [org.slf4j/slf4j-log4j12 log4j/log4j org.apache.zookeeper/zookeeper]
                  ]
                 ]
-  :jar-exclusions     [#"log4j\.properties" #"org\.apache\.storm\.(?!flux|kafka)" #"META-INF" #"meta-inf" #"\.yaml"]
-  :uberjar-exclusions [#"log4j\.properties" #"org\.apache\.storm\.(?!flux|kafka)" #"META-INF" #"meta-inf" #"\.yaml"]
+  :jar-exclusions     [#"log4j\.properties" #"org.slf4j.impl" #"org\.apache\.storm\.(?!flux|kafka)" #"META-INF" #"meta-inf" #"\.yaml"]
+  :uberjar-exclusions [#"log4j\.properties" #"org.slf4j.impl" #"org\.apache\.storm\.(?!flux|kafka)" #"META-INF" #"meta-inf" #"\.yaml"]
   )
