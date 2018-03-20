@@ -7,7 +7,6 @@ config:
   pystorm.log.max_bytes: 100000
   pystorm.log.path: /logs
   storm.workers.list: []
-  topology.acker.executors: 1
   topology.python.path: /data/virtualenvs//bsparse/bin/python
   topology.workers: 4
 
