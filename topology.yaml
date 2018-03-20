@@ -1,4 +1,4 @@
-name: bsparse
+name: ${topology.name}
 
 config:
   pystorm.log.backup_count: 10
@@ -9,7 +9,7 @@ config:
   storm.workers.list: []
   topology.acker.executors: 1
   topology.python.path: /data/virtualenvs//bsparse/bin/python
-  topology.workers: 1
+  topology.workers: 4
 
 components:
   - id: bshmScheme
@@ -31,7 +31,7 @@ components:
       # brokerHosts
       - ref: zkHosts
       # topic
-      - ${kafka.topic} 
+      - ${kafka.topic}
       # zkRoot
       - /kafkaSpout
       # id
@@ -48,6 +48,7 @@ components:
       - name: withFields
         args:
           - - timestamp
+            - time_increment
             - channel_name
             - data
 
@@ -57,6 +58,7 @@ spouts:
     className: org.apache.storm.kafka.KafkaSpout
     constructorArgs:
       - ref: spoutConfig
+    parallelism: 4
 
 # bolt definitions
 bolts:
@@ -75,6 +77,7 @@ bolts:
       - ${mongodb.url}
       - ${mongodb.collection}
       - ref: mongoMapper
+    parallelism: 4
 
   - id: tdmsParseBolt
     className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
@@ -207,10 +210,14 @@ bolts:
         args:
           - FCXF-X-02-T01
           - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - ALL-CHANNELS
+          - ${channel.tuple.fields}
     constructorArgs:
       - - streamparse_run
         - -s json bolts.tdms_parse.TDMSParseBolt
-    parallelism: 1
+    parallelism: 8
 
 # stream definitions
 streams:
@@ -222,13 +229,7 @@ streams:
   - from: tdmsParseBolt
     to: mongoBolt
     grouping:
-      type: SHUFFLE
-      streamId: FCXF-X-03-A01
-
-  - from: tdmsParseBolt
-    to: mongoBolt
-    grouping:
-      type: SHUFFLE
-      streamId: FCXF-X-04-S02
+      type: LOCAL_OR_SHUFFLE
+      streamId: ALL-CHANNELS
 
 # vim:set sw=2 ts=2 sts=2: #
