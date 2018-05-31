@@ -9,8 +9,6 @@ config:
   storm.workers.list: []
   topology.python.path: /data/virtualenvs//bsparse/bin/python
   topology.workers: 1
-  topology.message.timeout.secs: 60
-  topology.max.spout.pending: 30
 
 components:
   - id: bshmScheme
@@ -63,13 +61,63 @@ spouts:
 
 # bolt definitions
 bolts:
-  - id: mongoBolt
-    className: org.apache.storm.mongodb.bolt.MongoInsertBolt
+  - id: logInfoBolt
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    configMethods: []
     constructorArgs:
-      - ${mongodb.url}
-      - ${mongodb.collection}
-      - ref: mongoMapper
-    parallelism: 2
+    - - streamparse_run
+      - -s json bolts.log_info.LogInfoBolt
+    - - NONE_BUT_FLUX_WANTS_SOMETHING_HERE
+    parallelism: 1
+
+#  - id: mongoBolt
+#    className: org.apache.storm.mongodb.bolt.MongoInsertBolt
+#    constructorArgs:
+#      - ${mongodb.url}
+#      - ${mongodb.collection}
+#      - ref: mongoMapper
+#    parallelism: 4
+
+#  - id: detrendBolt
+#    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+#    constructorArgs:
+#    - - streamparse_run
+#      - -s json bolts.detrend.DetrendBolt
+#    configMethods:
+#      - name: addComponentConfig
+#        args:
+#          - min_tup_num
+#          - 4
+#      - name: setNamedStream
+#        args:
+#          - detrend
+#          - ${channel.tuple.fields}
+#    parallelism: 1
+
+  - id: neutralAxisBolt
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.neutral_axis.NeutralAxisBolt
+    configMethods:
+      - name: setNamedStream
+        args:
+          - neutral_axis
+          - [timestamp_min, timestamp_max, neutral_axis]
+      - name: addComponentConfig
+        args:
+          - height
+          - - [FCXF-X-03-S03, 300]
+            - [FCXF-X-03-S02, 700]
+            - [FCXF-X-03-S01, 1100]
+      - name: addComponentConfig
+        args:
+          - threshold
+          - 1
+      - name: addComponentConfig
+        args:
+          - group_freq
+          - 10s
 
   - id: tdmsParseBolt
     className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
@@ -219,9 +267,27 @@ streams:
       type: LOCAL_OR_SHUFFLE
 
   - from: tdmsParseBolt
-    to: mongoBolt
+    to: neutralAxisBolt
     grouping:
       type: LOCAL_OR_SHUFFLE
-      streamId: ALL-CHANNELS
+      streamId: FCXF-X-03-S01
+
+  - from: tdmsParseBolt
+    to: neutralAxisBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S02
+
+  - from: tdmsParseBolt
+    to: neutralAxisBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S03
+
+  - from: neutralAxisBolt
+    to: logInfoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: neutral_axis
 
 # vim:set sw=2 ts=2 sts=2: #
