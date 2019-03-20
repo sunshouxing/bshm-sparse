@@ -1,0 +1,12 @@
+# stream definitions
+streams:
+  - from: bshmSpout
+    to: tdmsParseBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: ALL-CHANNELS

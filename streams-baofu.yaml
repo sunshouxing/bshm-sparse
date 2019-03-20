@@ -1,0 +1,204 @@
+# stream definitions
+streams:
+  - from: bshmSpout
+    to: tdmsParseBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S04
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-S01
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-S02
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-S03
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-S04
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S01
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S02
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S03
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S04
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S05
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S06
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S01
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S02
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S03
+  - from: tdmsParseBolt
+    to: detrendBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S04
+
+  - from: detrendBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-01-D01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-01-D02
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-A01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-D01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-T01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-T02
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-T03
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-T04
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-A01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-A02
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-T01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-T02
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-T03
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-T04
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-T05
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-T06
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-A01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-D01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-T01
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-T02
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-T03
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-T04
+  - from: tdmsParseBolt
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-05-D01
