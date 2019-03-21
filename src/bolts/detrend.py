@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'SUN Shouwang'
 
+import numpy as np
 import pandas as pd
 from streamparse.bolt import Bolt
 from streamparse import Stream
@@ -24,34 +25,34 @@ class DetrendBolt(Bolt):
         step 2: call self._detrend() function to remove the mode value from the original data;
         stip 3: convert resulted pandas.Dataframe to list and send out.
         :param streamparse.Tuple, tup: tup.values =
-                [timestamp, time_offset, time_increment, samples, channel_name, module_name, data]
+                [timestamp, time_offset, time_increment, channel_name, data]
         :return streamparse.Tuple, tup: tup.values =
-                [timestamp, time_offset, time_increment, samples, channel_name, module_name, data]
+                [timestamp, time_offset, time_increment, channel_name, data]
         """
         timestamp = tup.values[0]
         time_increment = tup.values[2]
-        channel_name = tup.values[4]
-        data = tup.values[6]
-    
+        channel_name = tup.values[3]
+        data = tup.values[4]
+
         start_time = pd.Timestamp(timestamp, unit='s', tz='UTC')
         periods = data.__len__()
         freq = '{}ms'.format(int(time_increment / 0.001))
-    
+
         index = pd.MultiIndex.from_product(
             [[start_time], pd.date_range(start=start_time, periods=periods, freq=freq)],
             names=['start_time', 'timestamp']
         )
         df = pd.DataFrame(data=data, index=index, columns=[channel_name])
-    
+
         try:
             self.history = self.history.combine_first(df)
         except AttributeError:
             self.history = df
             self.res = list(tup.values)
-    
+
         for df in self._detrend():
             self.res[0] = df.index[0].timestamp()
-            self.res[6] = df[channel_name].values.tolist()
+            self.res[4] = np.nan_to_num(df[channel_name].values).tolist()
             self.emit(self.res, stream='detrend')
 
     def _detrend(self):
