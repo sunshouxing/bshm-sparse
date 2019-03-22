@@ -6,7 +6,177 @@ streams:
       type: LOCAL_OR_SHUFFLE
 
   - from: tdmsParseBolt
+    to: detrendBolt01
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-S01
+
+  - from: tdmsParseBolt
+    to: detrendBolt02
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-S02
+
+  - from: tdmsParseBolt
+    to: detrendBolt03
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-S03
+
+  - from: tdmsParseBolt
+    to: detrendBolt04
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-02-S04
+
+  - from: tdmsParseBolt
+    to: detrendBolt05
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S01
+
+  - from: tdmsParseBolt
+    to: detrendBolt06
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S02
+
+  - from: tdmsParseBolt
+    to: detrendBolt07
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S03
+
+  - from: tdmsParseBolt
+    to: detrendBolt08
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S04
+
+  - from: tdmsParseBolt
+    to: detrendBolt09
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S05
+
+  - from: tdmsParseBolt
+    to: detrendBolt10
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-03-S06
+
+  - from: tdmsParseBolt
+    to: detrendBolt11
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S01
+
+  - from: tdmsParseBolt
+    to: detrendBolt12
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S02
+
+  - from: tdmsParseBolt
+    to: detrendBolt13
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S03
+
+  - from: tdmsParseBolt
+    to: detrendBolt14
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: FCXF-X-04-S04
+
+  - from: tdmsParseBolt
     to: mongoBolt
     grouping:
       type: LOCAL_OR_SHUFFLE
-      streamId: ALL-CHANNELS
+      streamId: no-strains
+
+  - from: detrendBolt01
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt02
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt03
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt04
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt05
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt06
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt07
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt08
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt09
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt10
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt11
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt12
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt13
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+  - from: detrendBolt14
+    to: mongoBolt
+    grouping:
+      type: LOCAL_OR_SHUFFLE
+      streamId: detrend
+
+# vim:set sw=2 ts=2 sts=2: #

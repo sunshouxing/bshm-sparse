@@ -80,15 +80,295 @@ bolts:
 
   - id: tdmsParseBolt
     className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
-    configMethods:
-      - name: setNamedStream
-        args:
-          - ALL-CHANNELS
-          - ${channel.tuple.fields}
     constructorArgs:
       - - streamparse_run
         - -s json bolts.tdms_parse.TDMSParseBolt
+    configMethods:
+      - name: setNamedStream
+        args:
+          - no-strains
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-02-S01
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-02-S02
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-02-S03
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-02-S04
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-03-S01
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-03-S02
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-03-S03
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-03-S04
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-03-S05
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-03-S06
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-04-S01
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-04-S02
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-04-S03
+          - ${channel.tuple.fields}
+      - name: setNamedStream
+        args:
+          - FCXF-X-04-S04
+          - ${channel.tuple.fields}
     parallelism: 4
+
+  - id: detrendBolt01
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt02
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt03
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt04
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt05
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt06
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt07
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt08
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt09
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt10
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt11
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt12
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt13
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
+
+  - id: detrendBolt14
+    className: org.apache.storm.flux.wrappers.bolts.FluxShellBolt
+    constructorArgs:
+      - - streamparse_run
+        - -s json bolts.detrend.DetrendBolt
+    configMethods:
+      - name: addComponentConfig
+        args:
+          - min_tup_num
+          - 4
+      - name: setNamedStream
+        args:
+          - detrend
+          - ${channel.tuple.fields}
+    parallelism: 1
 
 # streams defination
 includes:

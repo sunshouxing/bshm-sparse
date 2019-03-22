@@ -25,8 +25,11 @@ class TDMSParseBolt(Bolt):
             tdms_file = TdmsFile(data_stream)
 
             for tup in self._parse(tdms_file):
-                # self.emit(tup, stream=tup[-3])
-                self.emit(tup, stream='ALL-CHANNELS')
+                channel = tup[-2]
+                if channel[-3] == 'S':
+                    self.emit(tup, stream=channel)
+                else:
+                    self.emit(tup, stream='no-strains')
         except Exception as error:
             self.log(error, 'error')
 
